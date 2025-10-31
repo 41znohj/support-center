@@ -1,53 +1,53 @@
-// ********************************************************** 'data-name' to Group Details **********************************************************
-document.addEventListener('DOMContentLoaded', function () {
-  // Select ALL details with data-name (ID is optional)
-  const detailsList = document.querySelectorAll('details[data-name]');
+// // ********************************************************** 'data-name' to Group Details **********************************************************
+// document.addEventListener('DOMContentLoaded', function () {
+//   // Select ALL details with data-name (ID is optional)
+//   const detailsList = document.querySelectorAll('details[data-name]');
 
-  // --- 1️⃣ Grouping behavior ---
-  detailsList.forEach((detail) => {
-    detail.addEventListener('toggle', function () {
-      const groupName = this.getAttribute('data-name');
-      const detailId = this.getAttribute('id');
+//   // --- 1️⃣ Grouping behavior ---
+//   detailsList.forEach((detail) => {
+//     detail.addEventListener('toggle', function () {
+//       const groupName = this.getAttribute('data-name');
+//       const detailId = this.getAttribute('id');
 
-      // If it's being opened
-      if (this.open) {
-        // Close all other details in the same group
-        detailsList.forEach((other) => {
-          if (other !== this && other.getAttribute('data-name') === groupName) {
-            other.removeAttribute('open');
-          }
-        });
+//       // If it's being opened
+//       if (this.open) {
+//         // Close all other details in the same group
+//         detailsList.forEach((other) => {
+//           if (other !== this && other.getAttribute('data-name') === groupName) {
+//             other.removeAttribute('open');
+//           }
+//         });
 
-        // If it has an ID, update the URL hash for sharing
-        if (detailId) {
-          history.replaceState(null, '', `#${detailId}`);
-        }
-      } else {
-        // If it has an ID and it's being closed, remove the hash if it matches
-        if (detailId && window.location.hash === `#${detailId}`) {
-          history.replaceState(null, '', window.location.pathname + window.location.search);
-        }
-      }
-    });
-  });
+//         // If it has an ID, update the URL hash for sharing
+//         if (detailId) {
+//           history.replaceState(null, '', `#${detailId}`);
+//         }
+//       } else {
+//         // If it has an ID and it's being closed, remove the hash if it matches
+//         if (detailId && window.location.hash === `#${detailId}`) {
+//           history.replaceState(null, '', window.location.pathname + window.location.search);
+//         }
+//       }
+//     });
+//   });
 
-  // --- 2️⃣ Auto-open <details> from URL hash if ID matches ---
-  function openFromHash() {
-    const hash = window.location.hash.replace('#', '');
-    if (!hash) return;
+//   // --- 2️⃣ Auto-open <details> from URL hash if ID matches ---
+//   function openFromHash() {
+//     const hash = window.location.hash.replace('#', '');
+//     if (!hash) return;
 
-    const target = document.getElementById(hash);
-    if (target && target.tagName.toLowerCase() === 'details') {
-      target.setAttribute('open', '');
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
+//     const target = document.getElementById(hash);
+//     if (target && target.tagName.toLowerCase() === 'details') {
+//       target.setAttribute('open', '');
+//       target.scrollIntoView({ behavior: 'smooth' });
+//     }
+//   }
 
-  openFromHash();
+//   openFromHash();
 
-  // --- 3️⃣ Handle in-page hash link clicks without reload ---
-  window.addEventListener('hashchange', openFromHash);
-});
+//   // --- 3️⃣ Handle in-page hash link clicks without reload ---
+//   window.addEventListener('hashchange', openFromHash);
+// });
 
 /***************************** New Carousel Step Nav *****************************/
 // Track which stepList-wrapper was most recently interacted with
