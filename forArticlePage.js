@@ -1,3 +1,4 @@
+/***************************** New Carousel Step Nav *****************************/
 // Track which stepList-wrapper was most recently interacted with
 let activeWrapper = null;
 
