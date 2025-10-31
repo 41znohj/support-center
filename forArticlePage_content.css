@@ -46,7 +46,7 @@
 .navPrev,
 .navNext {
   position: absolute;
-  background: var(--accent-color);
+  background: #114581;
   color: white;
   border: none;
   width: 40px;
