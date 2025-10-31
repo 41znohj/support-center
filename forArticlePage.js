@@ -1,53 +1,82 @@
-// // ********************************************************** 'data-name' to Group Details **********************************************************
-// document.addEventListener('DOMContentLoaded', function () {
-//   // Select ALL details with data-name (ID is optional)
-//   const detailsList = document.querySelectorAll('details[data-name]');
+// ********************************************************** 'data-name' to Group Details **********************************************************
+(function() {
+    'use strict';
 
-//   // --- 1️⃣ Grouping behavior ---
-//   detailsList.forEach((detail) => {
-//     detail.addEventListener('toggle', function () {
-//       const groupName = this.getAttribute('data-name');
-//       const detailId = this.getAttribute('id');
+    // Wait for DOM to be fully loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 
-//       // If it's being opened
-//       if (this.open) {
-//         // Close all other details in the same group
-//         detailsList.forEach((other) => {
-//           if (other !== this && other.getAttribute('data-name') === groupName) {
-//             other.removeAttribute('open');
-//           }
-//         });
+    function init() {
+        const allDetails = document.querySelectorAll('details');
+        const stepContainer = document.getElementById('tsgstepsV202504');
+        const groupedDetails = new Map();
 
-//         // If it has an ID, update the URL hash for sharing
-//         if (detailId) {
-//           history.replaceState(null, '', `#${detailId}`);
-//         }
-//       } else {
-//         // If it has an ID and it's being closed, remove the hash if it matches
-//         if (detailId && window.location.hash === `#${detailId}`) {
-//           history.replaceState(null, '', window.location.pathname + window.location.search);
-//         }
-//       }
-//     });
-//   });
+        // Group details by data-name or container
+        allDetails.forEach(detail => {
+            let groupName = detail.dataset.name;
+            
+            // If no data-name but inside step container, group them together
+            if (!groupName && stepContainer && stepContainer.contains(detail)) {
+                groupName = 'tsgstepsV202504-group';
+            }
+            
+            if (groupName) {
+                if (!groupedDetails.has(groupName)) {
+                    groupedDetails.set(groupName, []);
+                }
+                groupedDetails.get(groupName).push(detail);
+            }
+        });
 
-//   // --- 2️⃣ Auto-open <details> from URL hash if ID matches ---
-//   function openFromHash() {
-//     const hash = window.location.hash.replace('#', '');
-//     if (!hash) return;
+        // Set up mutual exclusivity for each group
+        groupedDetails.forEach(details => {
+            details.forEach(detail => {
+                detail.addEventListener('toggle', () => {
+                    if (detail.open) {
+                        // Close all other details in the same group
+                        details.forEach(other => {
+                            if (other !== detail && other.open) {
+                                other.open = false;
+                            }
+                        });
+                    }
+                });
+            });
+        });
 
-//     const target = document.getElementById(hash);
-//     if (target && target.tagName.toLowerCase() === 'details') {
-//       target.setAttribute('open', '');
-//       target.scrollIntoView({ behavior: 'smooth' });
-//     }
-//   }
+        // Handle URL fragment and ID-based opening
+        const hash = window.location.hash.substring(1);
+        if (hash) {
+            const targetDetail = document.getElementById(hash);
+            if (targetDetail && targetDetail.tagName === 'DETAILS') {
+                targetDetail.open = true;
+                
+                // Scroll to the element after a short delay to ensure layout is ready
+                setTimeout(() => {
+                    targetDetail.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
 
-//   openFromHash();
-
-//   // --- 3️⃣ Handle in-page hash link clicks without reload ---
-//   window.addEventListener('hashchange', openFromHash);
-// });
+        // Update URL when details are opened/closed
+        allDetails.forEach(detail => {
+            if (detail.id) {
+                detail.addEventListener('toggle', function() {
+                    // Only update URL when opening (not closing)
+                    if (this.open) {
+                        history.replaceState(null, '', `#${this.id}`);
+                    } else {
+                        // Remove hash when closing (optional - uncomment if desired)
+                        // history.replaceState(null, '', window.location.pathname + window.location.search);
+                    }
+                });
+            }
+        });
+    }
+})();
 
 /***************************** New Carousel Step Nav *****************************/
 // Track which stepList-wrapper was most recently interacted with
