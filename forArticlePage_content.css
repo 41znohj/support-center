@@ -1,3 +1,89 @@
+.article-body {
+/*   padding: var(--padding-responsive);
+  background-color: var(--bg-dark); */
+  line-height: 1.5;  
+  font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  color: var(--textnormal);
+}
+
+.article-body :is(h1, h2, h3, h4, p, ul, ol, blockquote, div.notification) {
+  margin-block: 1rem;
+}
+
+.article-body :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--textsharp);
+  text-wrap: pretty;
+}
+
+.article-body h2 {
+  position: relative;
+  font-family: 'Raleway';
+  font-size: clamp(1.7rem, calc(3vw + 0.01rem), 2rem);
+}
+
+.article-body h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50vw;
+  height: 2px; /* Adjust thickness as needed */
+  background: linear-gradient(90deg, 
+    rgba(131, 58, 180, 1) 0%, 
+    rgba(253, 29, 29, 0.66) 30%, 
+    rgba(252, 176, 69, 0) 100%);
+}
+
+.article-body h3 {
+  font-size: clamp(1.3rem, calc(3vw + 0.01rem), 1.5rem);
+  font-weight: 500;
+}
+
+.article-body h4 {
+  font-size: clamp(1rem, calc(3vw + 0.01rem), 1.2rem);
+}
+
+.article-body summary {
+  font-size: clamp(1rem, calc(2vw + 0.01rem), 1.1rem);
+}
+
+.article-body :is(p, ol, ul) {
+  font-size: clamp(0.9rem, calc(2vw + 0.01rem), 1rem);
+}
+
+.article-body :is(ol, ul) {
+  margin-left: var(--padding-responsive);
+}
+
+.article-body ol {
+  list-style-type: decimal;
+}
+
+.article-body :is(ol ol) {
+  list-style-type: lower-alpha;
+}
+
+.article-body ul {
+  list-style-type: disc;
+}
+
+.article-body :is(ul ul) {
+  list-style-type: circle;
+}
+
+.article-body a {
+  color: var(--textlink);
+  text-decoration: none;
+  border-bottom: solid 2px var(--textlink);
+}
+
+.article-body a:has(img) {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: none;
+}
+
 /***************************** New Carousel Step Nav *****************************/
 .stepList-wrapper {
   position: relative;
