@@ -27,7 +27,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 50vw;
+  width: 50%;
   height: 2px; /* Adjust thickness as needed */
   background: linear-gradient(90deg, 
     rgba(131, 58, 180, 1) 0%, 
