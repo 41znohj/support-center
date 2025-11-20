@@ -28,7 +28,7 @@
   bottom: 0;
   left: 0;
   width: 50%;
-  height: 2px; /* Adjust thickness as needed */
+  height: 2px;
   background: linear-gradient(90deg, 
     rgba(131, 58, 180, 1) 0%, 
     rgba(253, 29, 29, 0.66) 30%, 
@@ -42,10 +42,6 @@
 
 .article-body h4 {
   font-size: clamp(1rem, calc(3vw + 0.01rem), 1.2rem);
-}
-
-.article-body summary {
-  font-size: clamp(1rem, calc(2vw + 0.01rem), 1.1rem);
 }
 
 .article-body :is(p, ol, ul) {
