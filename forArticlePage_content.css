@@ -50,6 +50,7 @@
 
 .article-body :is(ol, ul) {
   margin-left: var(--padding-responsive);
+  padding-inline-start: unset;
 }
 
 .article-body ol {
